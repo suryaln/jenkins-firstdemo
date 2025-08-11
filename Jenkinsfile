@@ -18,7 +18,7 @@ pipeline {
         }
         stage('pushing image') {
             steps {
-                sh 'docker login -u $Docker_User -p $Docker_password'
+                sh 'docker login -u $Docker_User -p $Docker_Password'
                 sh 'docker push suryaln/chan'
                 
             }
