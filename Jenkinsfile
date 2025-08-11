@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        dockerhub = "suryaln/august"
+        dockerhub = "suryaln/sam"
         DOCKER = 'cred'
     }
     stages {
@@ -18,9 +18,9 @@ pipeline {
         }
         stage('pushing image') {
             steps {
-                sh 'docker login -u $Docker_User -p $Docker_Password'
-                sh 'docker push $dockerhub'
-                
+                withCredentials([usernamePassword(credentialsId: 'cred', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io"
+                }              
             }
         }
     }
