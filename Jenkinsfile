@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         dockerhub = "suryaln/sam"
-        DOCKER = 'cred'
     }
     stages {
         stage('Cloning') {
@@ -18,7 +17,7 @@ pipeline {
         }
         stage('pushing image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'cred', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                withCredentials([usernamePassword(credentialsId: "$(cred)", passwordVariable: 'pass', usernameVariable: 'user')]) {
                 sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io"
                 }              
             }
