@@ -13,13 +13,13 @@ pipeline {
         stage('build Image') {
             steps {
                 sh '''docker build -t imaging .
-                docker tag imaging suryaln/py-webhook'''
+                docker tag imaging $dockerhub'''
             }
         }
         stage('pushing image') {
             steps {
                 sh 'docker login -u $Docker_User -p $Docker_Password'
-                sh 'docker push suryaln/py-webhook'
+                sh 'docker push $dockerhub'
                 
             }
         }
